@@ -30,4 +30,9 @@ public class CompanyServiceImpl implements  CompanyService {
     public List<Company> getAllCompanies() {
         return companies;
     }
+
+    @Override
+    public void addCompany(Company company) {
+        companies.add(company);
+    }
 }
