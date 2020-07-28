@@ -42,4 +42,15 @@ public class EmployeeServiceImpl implements  EmployeeService {
         }
         return returningEmployees;
     }
+
+    @Override
+    public List<Employee> getEmployeeByGender(String gender) {
+        List<Employee> returningEmployees = new ArrayList<>();
+        for (Employee employee : employees) {
+            if (employee.getGender().equals(gender)) {
+                returningEmployees.add(employee);
+            }
+        }
+        return returningEmployees;
+    }
 }

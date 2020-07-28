@@ -13,10 +13,10 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping("/employees")
-    public List<Employee> getAllEmployee() {
-        return employeeService.getAllEmployee();
-    }
+//    @GetMapping("/employees")
+//    public List<Employee> getAllEmployee() {
+//        return employeeService.getAllEmployee();
+//    }
 
     @PostMapping("/employees")
     public void addEmployee(@RequestBody Employee employee) {
@@ -32,4 +32,9 @@ public class EmployeeController {
 //    public List<Employee> getEmployeeByRange(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
 //        return employeeService.getEmployeeByRange(page, pageSize);
 //    }
+
+    @GetMapping("/employees")
+    public List<Employee> getEmployeesByGender(@RequestParam("gender") String gender) {
+        return employeeService.getEmployeeByGender(gender);
+    }
 }
