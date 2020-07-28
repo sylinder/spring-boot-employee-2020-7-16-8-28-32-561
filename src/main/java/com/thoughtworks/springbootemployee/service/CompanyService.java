@@ -13,4 +13,6 @@ public interface CompanyService {
     void addCompany(Company company);
 
     List<Employee> getAllEmployeesByCompanyId(int id);
+
+    List<Company> getCompaniesByRange(int start, int end);
 }

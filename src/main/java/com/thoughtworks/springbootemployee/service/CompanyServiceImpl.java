@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class CompanyServiceImpl implements  CompanyService {
     private List<Company> companies;
 
     public CompanyServiceImpl() {
-        this.companies = new LinkedList<>();
+        this.companies = new ArrayList<>();
     }
 
     @Override
@@ -47,5 +48,14 @@ public class CompanyServiceImpl implements  CompanyService {
         if (queryCompany == null)
             return null;
         return queryCompany.getEmployees();
+    }
+
+    @Override
+    public List<Company> getCompaniesByRange(int start, int end) {
+        List<Company> returnCompanies = new ArrayList<>();
+        for (int index = start - 1; index < companies.size() && index < end - 1; index++) {
+            returnCompanies.add(companies.get(index));
+        }
+        return returnCompanies;
     }
 }

@@ -14,10 +14,10 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
-    @GetMapping("/companies")
-    public List<Company> getAllCompanies() {
-        return companyService.getAllCompanies();
-    }
+//    @GetMapping("/companies")
+//    public List<Company> getAllCompanies() {
+//        return companyService.getAllCompanies();
+//    }
 
     @GetMapping("/companies/{id}")
     public Company getCompanyById(@PathVariable int id) {
@@ -32,5 +32,11 @@ public class CompanyController {
     @GetMapping("/companies/{id}/employees")
     public List<Employee> getAllEmployeesByCompanyId(@PathVariable int id) {
         return companyService.getAllEmployeesByCompanyId(id);
+    }
+
+
+    @GetMapping("/companies")
+    public List<Company> getCompaniesInRange(@RequestParam("page") int page, @RequestParam int pageSize) {
+        return companyService.getCompaniesByRange(page, pageSize);
     }
 }
