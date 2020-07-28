@@ -14,4 +14,6 @@ public interface EmployeeService {
     List<Employee> getEmployeeByRange(int start, int end);
 
     List<Employee> getEmployeeByGender(String gender);
+
+    void updateEmployee(int id, Employee employee);
 }

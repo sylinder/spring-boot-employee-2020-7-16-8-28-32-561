@@ -13,10 +13,10 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-//    @GetMapping("/employees")
-//    public List<Employee> getAllEmployee() {
-//        return employeeService.getAllEmployee();
-//    }
+    @GetMapping("/employees")
+    public List<Employee> getAllEmployee() {
+        return employeeService.getAllEmployee();
+    }
 
     @PostMapping("/employees")
     public void addEmployee(@RequestBody Employee employee) {
@@ -33,8 +33,13 @@ public class EmployeeController {
 //        return employeeService.getEmployeeByRange(page, pageSize);
 //    }
 
-    @GetMapping("/employees")
-    public List<Employee> getEmployeesByGender(@RequestParam("gender") String gender) {
-        return employeeService.getEmployeeByGender(gender);
+//    @GetMapping("/employees")
+//    public List<Employee> getEmployeesByGender(@RequestParam("gender") String gender) {
+//        return employeeService.getEmployeeByGender(gender);
+//    }
+
+    @PutMapping("employees/{id}")
+    public void updateEmployee(@PathVariable int id, @RequestBody Employee employee) {
+        employeeService.updateEmployee(id, employee);
     }
 }
