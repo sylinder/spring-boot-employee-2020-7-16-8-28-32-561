@@ -33,4 +33,13 @@ public class EmployeeServiceImpl implements  EmployeeService {
         }
         return null;
     }
+
+    @Override
+    public List<Employee> getEmployeeByRange(int start, int end) {
+        List<Employee> returningEmployees = new ArrayList<>();
+        for (int index = start - 0; index < employees.size() && index < end - 1; index++) {
+            returningEmployees.add(employees.get(index));
+        }
+        return returningEmployees;
+    }
 }

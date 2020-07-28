@@ -27,4 +27,9 @@ public class EmployeeController {
     public Employee getEmployeeById(@PathVariable int id) {
         return employeeService.getEmployeeById(id);
     }
+
+//    @GetMapping("/companies")
+//    public List<Employee> getEmployeeByRange(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+//        return employeeService.getEmployeeByRange(page, pageSize);
+//    }
 }
