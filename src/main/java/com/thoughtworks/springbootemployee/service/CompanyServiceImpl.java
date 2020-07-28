@@ -69,4 +69,13 @@ public class CompanyServiceImpl implements  CompanyService {
             }
         }
     }
+
+    @Override
+    public void deleteCompany(int id) {
+        for (Company company : companies) {
+            if (company.getId() == id) {
+                companies.remove(company);
+            }
+        }
+    }
 }

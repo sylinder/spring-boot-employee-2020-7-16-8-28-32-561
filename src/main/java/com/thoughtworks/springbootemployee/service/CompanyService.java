@@ -17,4 +17,6 @@ public interface CompanyService {
     List<Company> getCompaniesByRange(int start, int end);
 
     void updateCompany(int id, Company company);
+
+    void deleteCompany(int id);
 }
