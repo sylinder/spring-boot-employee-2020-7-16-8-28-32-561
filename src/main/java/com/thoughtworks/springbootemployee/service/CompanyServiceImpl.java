@@ -35,4 +35,17 @@ public class CompanyServiceImpl implements  CompanyService {
     public void addCompany(Company company) {
         companies.add(company);
     }
+
+    @Override
+    public List<Employee> getAllEmployeesByCompanyId(int id) {
+        Company queryCompany = null;
+        for (Company company : companies) {
+            if (company.getId() == id) {
+                queryCompany = company;
+            }
+        }
+        if (queryCompany == null)
+            return null;
+        return queryCompany.getEmployees();
+    }
 }
