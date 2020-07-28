@@ -38,8 +38,13 @@ public class EmployeeController {
 //        return employeeService.getEmployeeByGender(gender);
 //    }
 
-    @PutMapping("employees/{id}")
+    @PutMapping("/employees/{id}")
     public void updateEmployee(@PathVariable int id, @RequestBody Employee employee) {
         employeeService.updateEmployee(id, employee);
+    }
+
+    @DeleteMapping("/employees/{id}")
+    public void deleteEmployee(@PathVariable int id) {
+        employeeService.deleteEmployee(id);
     }
 }

@@ -64,4 +64,13 @@ public class EmployeeServiceImpl implements  EmployeeService {
             }
         }
     }
+
+    @Override
+    public void deleteEmployee(int id) {
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                employees.remove(employee);
+            }
+        }
+    }
 }
