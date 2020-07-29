@@ -3,6 +3,8 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NoSuchEmployeeException;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +24,9 @@ public class EmployeeService {
 
     public Employee getEmployeeById(int id) {
         return employeeRepository.findById(id).orElseThrow(() -> new NoSuchEmployeeException());
+    }
+
+    public Page<Employee> getAllEmployees(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 }
