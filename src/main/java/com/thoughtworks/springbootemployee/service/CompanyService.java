@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NoSuchCompanyException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,11 @@ public class CompanyService {
 
     public Company getCompanyById(int id) {
         return companyRepository.findById(id).orElseThrow(() -> new NoSuchCompanyException());
+    }
+
+    public List<Employee> getEmployeesByCompanyId(int id) {
+        return companyRepository.findById(id)
+                .orElseThrow(NoSuchCompanyException::new)
+                .getEmployees();
     }
 }
