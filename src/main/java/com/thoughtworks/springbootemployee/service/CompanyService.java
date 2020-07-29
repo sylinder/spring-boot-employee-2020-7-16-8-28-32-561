@@ -4,6 +4,8 @@ import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NoSuchCompanyException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +31,13 @@ public class CompanyService {
         return companyRepository.findById(id)
                 .orElseThrow(NoSuchCompanyException::new)
                 .getEmployees();
+    }
+
+    public Page<Company> getAllCompanies(Pageable pageable) {
+        return companyRepository.findAll(pageable);
+    }
+
+    public void addCompany(Company company) {
+        companyRepository.save(company);
     }
 }

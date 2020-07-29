@@ -3,10 +3,10 @@ package com.thoughtworks.springbootemployee.controller;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +33,18 @@ public class CompanyController {
     @GetMapping("/{id}/employees")
     public List<Employee> getEmployeesByCompanyId(@PathVariable int id) {
         return companyService.getEmployeesByCompanyId(id);
+    }
+
+    @GetMapping(params = "unpaged")
+    public Page<Company> getCompaniesByRange(@PageableDefault(size = 2) Pageable pageable, @RequestParam(defaultValue = "true") boolean unpaged) {
+        if (unpaged) {
+            return companyService.getAllCompanies(Pageable.unpaged());
+        }
+        return companyService.getAllCompanies(pageable);
+    }
+
+    @PostMapping
+    public void addCompany(@RequestBody Company company) {
+        companyService.addCompany(company);
     }
 }
