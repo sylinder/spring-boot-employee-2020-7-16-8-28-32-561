@@ -40,4 +40,9 @@ public class CompanyService {
     public void addCompany(Company company) {
         companyRepository.save(company);
     }
+
+    public void updateCompany(Company company) {
+//        companyRepository.deleteById(id);
+        companyRepository.save(company);
+    }
 }
