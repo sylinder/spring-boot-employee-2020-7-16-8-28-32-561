@@ -2,21 +2,51 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.NoCompanyFoundException;
+import com.thoughtworks.springbootemployee.exception.NoEmployFoundException;
+import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-public interface CompanyService {
-    Company getCompanyById(int id);
+@Service
+public class CompanyService {
+    private final CompanyRepository companyRepository;
 
-    List<Company> getAllCompanies();
+    public CompanyService(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
+    }
 
-    void addCompany(Company company);
+    public Page<Company> getAllCompany(Pageable pageable){
+        return companyRepository.findAll(pageable);
+    }
 
-    List<Employee> getAllEmployeesByCompanyId(int id);
+    public List<Company> getAllCompany() {
+        return companyRepository.findAll();
+    }
 
-    List<Company> getCompaniesByRange(int start, int end);
+    public List<Employee> getAllEmployeeByCompanyId(int id) throws NoCompanyFoundException {
+        return companyRepository.findById(id).orElseThrow(NoCompanyFoundException:: new)
+                .getEmployees();
+    }
 
-    void updateCompany(int id, Company company);
+    public void deleteCompanyById(int id)
+    {
+        companyRepository.deleteById(id);
+    }
 
-    void deleteCompany(int id);
+    public Company getCompanyById(int id) throws NoCompanyFoundException {
+        return companyRepository.findById(id).orElseThrow(() -> new NoCompanyFoundException());
+    }
+
+    public void addCompany(Company company) {
+        companyRepository.save(company);
+    }
+
+    public void updateCompany(Company company) {
+        companyRepository.save(company);
+    }
 }
