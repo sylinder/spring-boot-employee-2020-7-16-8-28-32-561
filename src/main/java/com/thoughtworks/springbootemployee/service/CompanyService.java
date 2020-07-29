@@ -45,4 +45,8 @@ public class CompanyService {
 //        companyRepository.deleteById(id);
         companyRepository.save(company);
     }
+
+    public void deleteCompanyById(int id) {
+        companyRepository.deleteById(id);
+    }
 }

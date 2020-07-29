@@ -52,4 +52,9 @@ public class CompanyController {
     public void updateCompany(@RequestBody Company company) {
         companyService.updateCompany(company);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteCompanyById(@PathVariable int id) {
+        companyService.deleteCompanyById(id);
+    }
 }
