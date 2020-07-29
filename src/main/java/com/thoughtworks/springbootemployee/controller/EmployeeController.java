@@ -52,4 +52,9 @@ public class EmployeeController {
     public void updateEmployee(@RequestBody Employee employee) {
         employeeService.updateEmployee(employee);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployeeById(@PathVariable int id){
+        employeeService.deleteEmployeeById(id);
+    }
 }
