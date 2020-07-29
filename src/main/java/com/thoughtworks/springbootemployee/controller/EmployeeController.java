@@ -42,4 +42,9 @@ public class EmployeeController {
     public List<Employee> getEmployeesByGender(@RequestParam String gender) {
         return employeeService.getEmployeeByGender(gender);
     }
+
+    @PostMapping
+    public void addEmployee(@RequestBody Employee employee) {
+        employeeService.addEmployee(employee);
+    }
 }
