@@ -29,4 +29,8 @@ public class EmployeeService {
     public Page<Employee> getAllEmployees(Pageable pageable) {
         return employeeRepository.findAll(pageable);
     }
+
+    public List<Employee> getEmployeeByGender(String gender) {
+        return employeeRepository.findByGender(gender);
+    }
 }

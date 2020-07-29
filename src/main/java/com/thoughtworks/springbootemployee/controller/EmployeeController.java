@@ -37,4 +37,9 @@ public class EmployeeController {
         return employeeService.getAllEmployees(pageable);
 
     }
+
+    @GetMapping(params = "gender")
+    public List<Employee> getEmployeesByGender(@RequestParam String gender) {
+        return employeeService.getEmployeeByGender(gender);
+    }
 }
