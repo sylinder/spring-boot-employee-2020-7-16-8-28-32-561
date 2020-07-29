@@ -47,4 +47,9 @@ public class EmployeeController {
     public void addEmployee(@RequestBody Employee employee) {
         employeeService.addEmployee(employee);
     }
+
+    @PutMapping("/{id}")
+    public void updateEmployee(@RequestBody Employee employee) {
+        employeeService.updateEmployee(employee);
+    }
 }
