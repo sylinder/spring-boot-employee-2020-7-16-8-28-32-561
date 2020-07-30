@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseBody
     public List<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
 
@@ -37,8 +38,5 @@ public class GlobalControllerExceptionHandler {
                 .map(e -> e.getField()+":"+e.getDefaultMessage()).collect(Collectors.toList());
     }
 
-//    public ExceptionStatus handleOthers() {
-//        ExceptionStatus exceptionStatus = new ExceptionStatus();
-//        exceptionStatus.setStatus();
-//    }
+
 }

@@ -1,12 +1,17 @@
 package com.thoughtworks.springbootemployee.dto;
 
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 public class EmployeeRequest {
     @NotBlank
     private String name;
+    @Positive
     private int age;
+    @NotBlank
     private String gender;
     private int companyId;
 
