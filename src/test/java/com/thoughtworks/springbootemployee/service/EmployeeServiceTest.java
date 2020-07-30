@@ -42,6 +42,7 @@ class EmployeeServiceTest {
         EmployeeRequest employeeRequest = new EmployeeRequest("zhangsan", 18, "male", 1);
         Company company = new Company();
         company.setName("oocl");
+        company.setId(1);
         when(companyRepository.findById(any())).thenReturn(Optional.of(company));
         Employee employee = new Employee(1, "zhangsan", 18, "male", company);
         when(employeeRepository.save(any())).thenReturn(employee);
@@ -50,4 +51,5 @@ class EmployeeServiceTest {
         //then
         assertEquals(employeeRequest.getName(), employeeAdded.getName());
     }
+
 }
