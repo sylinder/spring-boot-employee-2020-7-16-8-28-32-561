@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -52,18 +53,17 @@ public class CompanyIntegrationTest {
 
         List<Company> companies = companyRepository.findAll();
         //then
-        assertEquals(1,companies.size());
+        assertEquals(1, companies.size());
     }
 
     @Test
     void should_return_0_company_when_delete_company_given_company_id() throws Exception {
         //given
         Company company = new Company();
-        company.setId(1);
         company.setName("oocl");
-        companyRepository.save(company);
+        Company saveCompany = companyRepository.save(company);
         //when
-        mockMvc.perform(delete("/companies/1")).andExpect(status().isOk());
+        mockMvc.perform(delete(String.format("/companies/%d", saveCompany.getId()))).andExpect(status().isOk());
         List<Company> companies = companyRepository.findAll();
         //then
         assertEquals(0, companies.size());
@@ -81,9 +81,27 @@ public class CompanyIntegrationTest {
         mockMvc.perform(put(String.format("/companies/%d", id))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(companyPayload))
-        .andExpect(status().isOk());
+                .andExpect(status().isOk());
         Company newCompany = companyRepository.findById(id).get();
         //then
-        assertEquals("Caps",newCompany.getName());
+        assertEquals("Caps", newCompany.getName());
+    }
+
+
+    @Test
+    void should_return_oocl_when_get_company_by_id_given_id() throws Exception {
+        //given
+        Company company = new Company();
+        int companyId = 1;
+        company.setName("oocl");
+        company.setId(companyId);
+        companyRepository.save(company);
+        //when
+
+        mockMvc.perform(get(String.format("/companies/%d", companyId)))
+                .andExpect(status().isOk());
+
+        Company returningCompany = companyRepository.findById(companyId).get();
+        assertEquals("oocl", returningCompany.getName());
     }
 }
