@@ -40,5 +40,16 @@ public class CompanyIntegrationTest {
         mockMvc.perform(get("/companies")).andExpect(status().isOk());
     }
 
+    @Test
+    void should_return_1_company_when_add_company_given_1_company() throws Exception {
+        String companyPayload = "{\"name\": \"oocl\"}";
+        mockMvc.perform(post("/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(companyPayload))
+                .andExpect(status().isCreated());
+
+        List<Company> companies = companyRepository.findAll();
+        assertEquals(1,companies.size());
+    }
 
 }
