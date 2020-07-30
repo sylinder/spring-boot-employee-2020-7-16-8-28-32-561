@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NoSuchEmployeeException;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
@@ -44,5 +45,9 @@ public class EmployeeService {
 
     public void deleteEmployeeById(int id) {
         employeeRepository.deleteById(id);
+    }
+
+    public Employee addEmployee2(EmployeeRequest employeeRequest) {
+        return null;
     }
 }
