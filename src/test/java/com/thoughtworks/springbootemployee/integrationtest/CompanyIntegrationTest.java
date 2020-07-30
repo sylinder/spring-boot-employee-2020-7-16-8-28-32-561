@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -50,6 +48,17 @@ public class CompanyIntegrationTest {
 
         List<Company> companies = companyRepository.findAll();
         assertEquals(1,companies.size());
+    }
+
+    @Test
+    void should_return_0_company_when_delete_company_given_company_id() throws Exception {
+        Company company = new Company();
+        company.setId(1);
+        company.setName("oocl");
+        companyRepository.save(company);
+        mockMvc.perform(delete("/companies/1")).andExpect(status().isOk());
+        List<Company> companies = companyRepository.findAll();
+        assertEquals(0, companies.size());
     }
 
 }
