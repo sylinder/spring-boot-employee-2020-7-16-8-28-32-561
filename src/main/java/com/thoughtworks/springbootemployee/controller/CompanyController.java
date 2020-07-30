@@ -51,6 +51,7 @@ public class CompanyController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void updateCompany(@RequestBody Company company) {
         companyService.updateCompany(company);
     }
