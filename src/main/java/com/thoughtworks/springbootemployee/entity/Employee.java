@@ -1,10 +1,13 @@
 package com.thoughtworks.springbootemployee.entity;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "employee")
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -68,4 +71,5 @@ public class Employee {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
 }

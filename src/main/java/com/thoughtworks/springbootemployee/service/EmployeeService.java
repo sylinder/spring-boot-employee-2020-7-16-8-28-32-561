@@ -8,6 +8,7 @@ import com.thoughtworks.springbootemployee.exception.NoSuchCompanyException;
 import com.thoughtworks.springbootemployee.exception.NoSuchEmployeeException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.util.EmployeeToEmployeeResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -28,8 +30,9 @@ public class EmployeeService {
     }
 
     public List<EmployeeResponse> getAllEmployees() {
-//        return employeeRepository.findAll();
-        return null;
+       return employeeRepository.findAll().stream().
+                map(EmployeeToEmployeeResponse::transferEmployeeToEmployeeResponse)
+                .collect(Collectors.toList());
     }
 
 
