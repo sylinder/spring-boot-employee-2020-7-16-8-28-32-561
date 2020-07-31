@@ -1,5 +1,8 @@
-package com.thoughtworks.springbootemployee.exception;
+package com.thoughtworks.springbootemployee.advice;
 
+import com.thoughtworks.springbootemployee.exception.ExceptionStatus;
+import com.thoughtworks.springbootemployee.exception.NoSuchCompanyException;
+import com.thoughtworks.springbootemployee.exception.NoSuchEmployeeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
