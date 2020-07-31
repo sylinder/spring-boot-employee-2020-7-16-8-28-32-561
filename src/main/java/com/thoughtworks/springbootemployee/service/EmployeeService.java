@@ -59,7 +59,10 @@ public class EmployeeService {
            employee.setGender(employeeRequest.getGender());
            employee.setCompany(company.get());
            Employee employeeAdded = employeeRepository.save(employee);
-
+           EmployeeResponse employeeResponse = new EmployeeResponse();
+           BeanUtils.copyProperties(employeeAdded,employeeResponse);
+           employeeResponse.setCompanyName(company.get().getName());
+           return employeeResponse;
         }
         return null;
     }
