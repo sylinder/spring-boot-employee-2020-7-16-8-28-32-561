@@ -105,4 +105,22 @@ class EmployeeServiceTest {
         //then
         assertEquals(2, employeeResponses.size());
     }
+
+
+    @Test
+    void should_return_size_2_when_get_employee_by_gender_given_2_female() {
+        //given
+        Employee employee1 = new Employee();
+        employee1.setGender("male");
+        Employee employee2 = new Employee();
+        employee2.setGender("male");
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee1);
+        employees.add(employee2);
+        when(employeeRepository.findByGender("male")).thenReturn(employees);
+        //when
+        List<EmployeeResponse> employeeResponses = employeeService.getEmployeeByGender("male");
+        //then
+        assertEquals(2, employeeResponses.size());
+    }
 }

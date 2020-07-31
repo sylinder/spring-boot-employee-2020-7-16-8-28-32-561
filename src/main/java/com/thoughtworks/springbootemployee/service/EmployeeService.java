@@ -51,8 +51,8 @@ public class EmployeeService {
         return employeeRepository.findAll(pageable);
     }
 
-    public List<Employee> getEmployeeByGender(String gender) {
-        return employeeRepository.findByGender(gender);
+    public List<EmployeeResponse> getEmployeeByGender(String gender) {
+        return null;
     }
 
     public void updateEmployee(Employee employee) {
