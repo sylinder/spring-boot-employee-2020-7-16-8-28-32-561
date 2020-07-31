@@ -47,9 +47,11 @@ class EmployeeServiceTest {
         Employee employee = new Employee(1, "zhangsan", 18, "male", company);
         when(employeeRepository.save(any())).thenReturn(employee);
         //when
-        Employee employeeAdded = employeeService.addEmployee2(employeeRequest);
+        Employee employeeAdded = employeeService.addEmployee(employeeRequest);
         //then
         assertEquals(employeeRequest.getName(), employeeAdded.getName());
     }
+
+
 
 }

@@ -41,10 +41,6 @@ public class EmployeeService {
         return employeeRepository.findByGender(gender);
     }
 
-    public void addEmployee(Employee employee) {
-        employeeRepository.save(employee);
-    }
-
     public void updateEmployee(Employee employee) {
         employeeRepository.save(employee);
     }
@@ -53,7 +49,7 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    public Employee addEmployee2(EmployeeRequest employeeRequest) {
+    public Employee addEmployee(EmployeeRequest employeeRequest) {
         Optional<Company> company = companyRepository.findById(employeeRequest.getCompanyId());
         if(company.isPresent()){
            Employee employee = new Employee();

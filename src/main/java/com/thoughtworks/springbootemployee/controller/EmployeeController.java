@@ -47,7 +47,7 @@ public class EmployeeController {
 
     @PostMapping
     public void addEmployee(@RequestBody @Valid EmployeeRequest employee) {
-        employeeService.addEmployee2(employee);
+        employeeService.addEmployee(employee);
     }
 
     @PutMapping("/{id}")
