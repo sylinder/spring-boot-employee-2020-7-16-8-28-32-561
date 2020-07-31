@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Optional;
 
@@ -68,6 +70,21 @@ class EmployeeServiceTest {
         assertEquals("company not found",throwable.getMessage());
     }
 
-
-
+    @Test
+    void should_return_employee_response_when_query_employee_by_id_given_exist_id() {
+        //given
+        int id = 1;
+        String name = "caps";
+        Employee employee = new Employee();
+        employee.setId(id);
+        employee.setName(name);
+        Company company = new Company();
+        company.setName("caps");
+        employee.setCompany(company);
+        when(employeeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(employee));
+        //when
+        EmployeeResponse employeeResponse = employeeService.getEmployeeById(id);
+        //then
+        assertEquals(name, employeeResponse.getName());
+    }
 }

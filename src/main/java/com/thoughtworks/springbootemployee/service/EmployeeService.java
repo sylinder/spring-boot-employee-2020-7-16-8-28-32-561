@@ -31,8 +31,8 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeeById(int id) {
-        return employeeRepository.findById(id).orElseThrow(() -> new NoSuchEmployeeException());
+    public EmployeeResponse getEmployeeById(int id) {
+        return null;
     }
 
     public Page<Employee> getAllEmployees(Pageable pageable) {
@@ -53,17 +53,17 @@ public class EmployeeService {
 
     public EmployeeResponse addEmployee(EmployeeRequest employeeRequest) {
         Optional<Company> company = companyRepository.findById(employeeRequest.getCompanyId());
-        if(company.isPresent()){
-           Employee employee = new Employee();
-           employee.setAge(employeeRequest.getAge());
-           employee.setName(employeeRequest.getName());
-           employee.setGender(employeeRequest.getGender());
-           employee.setCompany(company.get());
-           Employee employeeAdded = employeeRepository.save(employee);
-           EmployeeResponse employeeResponse = new EmployeeResponse();
-           BeanUtils.copyProperties(employeeAdded,employeeResponse);
-           employeeResponse.setCompanyName(company.get().getName());
-           return employeeResponse;
+        if (company.isPresent()) {
+            Employee employee = new Employee();
+            employee.setAge(employeeRequest.getAge());
+            employee.setName(employeeRequest.getName());
+            employee.setGender(employeeRequest.getGender());
+            employee.setCompany(company.get());
+            Employee employeeAdded = employeeRepository.save(employee);
+            EmployeeResponse employeeResponse = new EmployeeResponse();
+            BeanUtils.copyProperties(employeeAdded, employeeResponse);
+            employeeResponse.setCompanyName(company.get().getName());
+            return employeeResponse;
         }
         throw new NoSuchCompanyException();
     }
