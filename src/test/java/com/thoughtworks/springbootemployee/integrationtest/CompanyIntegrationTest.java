@@ -56,10 +56,11 @@ public class CompanyIntegrationTest {
     }
 
     @Test
-    void should_return_0_company_when_delete_company_given_company_id() throws Exception {
+    void should_return_0_company_when_delete_company_given_company_id() throws Exception { //TODO
         //given
         Company company = new Company();
         company.setName("oocl");
+//        company.setId(9);
         Company saveCompany = companyRepository.save(company);
         //when
         mockMvc.perform(delete(String.format("/companies/%d", saveCompany.getId()))).andExpect(status().isOk());
