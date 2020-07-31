@@ -32,7 +32,14 @@ public class EmployeeService {
     }
 
     public EmployeeResponse getEmployeeById(int id) {
-        return null;
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isPresent()) {
+            EmployeeResponse employeeResponse = new EmployeeResponse();
+            BeanUtils.copyProperties(optionalEmployee.get(), employeeResponse);
+            employeeResponse.setCompanyName(optionalEmployee.get().getCompany().getName());
+            return employeeResponse;
+        }
+        throw new NoSuchEmployeeException();
     }
 
     public Page<Employee> getAllEmployees(Pageable pageable) {
