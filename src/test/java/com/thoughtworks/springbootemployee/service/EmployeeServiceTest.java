@@ -15,6 +15,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -86,5 +88,21 @@ class EmployeeServiceTest {
         EmployeeResponse employeeResponse = employeeService.getEmployeeById(id);
         //then
         assertEquals(name, employeeResponse.getName());
+    }
+
+    @Test
+    void should_return_size_2_when_getEmployees_given_2_employee() {
+        Employee employee = new Employee();
+        employee.setCompany(new Company("oocl"));
+        Employee anotherEmployee = new Employee();
+        anotherEmployee.setCompany(new Company("oocl"));
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee);
+        employees.add(anotherEmployee);
+        when(employeeRepository.findAll()).thenReturn(employees);
+        //when
+        List<EmployeeResponse> employeeResponses = employeeService.getAllEmployees();
+        //then
+        assertEquals(2, employeeResponses.size());
     }
 }

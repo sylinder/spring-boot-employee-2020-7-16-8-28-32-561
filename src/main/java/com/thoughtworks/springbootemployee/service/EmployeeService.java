@@ -27,9 +27,11 @@ public class EmployeeService {
         this.companyRepository = companyRepository;
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeResponse> getAllEmployees() {
+//        return employeeRepository.findAll();
+        return null;
     }
+
 
     public EmployeeResponse getEmployeeById(int id) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
