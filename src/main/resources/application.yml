@@ -3,7 +3,7 @@ spring:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:parkinglot
     username: ang
-    password: P@ssw0rd
+    password: 111111
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
   h2:
