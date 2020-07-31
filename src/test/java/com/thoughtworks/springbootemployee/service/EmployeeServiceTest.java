@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
 import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.NoSuchCompanyException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -51,6 +53,19 @@ class EmployeeServiceTest {
         EmployeeResponse employeeResponse = employeeService.addEmployee(employeeRequest);
         //then
         assertEquals(employeeRequest.getName(), employeeResponse.getName());
+    }
+
+
+    @Test
+    void should_throw_no_such_company_exception_when_add_employee_given_request_employee_with_no_exit_company_id() {
+        //given
+        EmployeeRequest employeeRequest = new EmployeeRequest("zhangsan", 18, "male", 1);
+        when(companyRepository.findById(any())).thenReturn(Optional.empty());
+        //when
+        Throwable throwable = assertThrows(NoSuchCompanyException.class, () -> employeeService.addEmployee(employeeRequest));
+
+        //then
+        assertEquals("company not found",throwable.getMessage());
     }
 
 
