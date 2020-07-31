@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
 import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.NoSuchCompanyException;
 import com.thoughtworks.springbootemployee.exception.NoSuchEmployeeException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
@@ -64,6 +65,6 @@ public class EmployeeService {
            employeeResponse.setCompanyName(company.get().getName());
            return employeeResponse;
         }
-        return null;
+        throw new NoSuchCompanyException();
     }
 }
