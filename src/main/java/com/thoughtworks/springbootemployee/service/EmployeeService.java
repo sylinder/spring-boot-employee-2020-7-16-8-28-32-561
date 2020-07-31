@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeRequest;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NoSuchEmployeeException;
@@ -49,7 +50,7 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    public Employee addEmployee(EmployeeRequest employeeRequest) {
+    public EmployeeResponse addEmployee(EmployeeRequest employeeRequest) {
         Optional<Company> company = companyRepository.findById(employeeRequest.getCompanyId());
         if(company.isPresent()){
            Employee employee = new Employee();
@@ -57,7 +58,8 @@ public class EmployeeService {
            employee.setName(employeeRequest.getName());
            employee.setGender(employeeRequest.getGender());
            employee.setCompany(company.get());
-           return employeeRepository.save(employee);
+           Employee employeeAdded = employeeRepository.save(employee);
+
         }
         return null;
     }
