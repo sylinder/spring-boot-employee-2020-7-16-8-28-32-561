@@ -9,6 +9,7 @@ public class EmployeeToEmployeeResponse {
     public static EmployeeResponse transferEmployeeToEmployeeResponse(Employee employee){
         EmployeeResponse employeeResponse = new EmployeeResponse();
         BeanUtils.copyProperties(employee,employeeResponse);
+        employeeResponse.setCompanyName(employee.getCompany().getName());
         return employeeResponse;
     }
 }

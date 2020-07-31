@@ -1,20 +1,27 @@
 package com.thoughtworks.springbootemployee.integrationtest;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.JsonPath;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -27,6 +34,12 @@ public class CompanyIntegrationTest {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private CompanyService companyService;
 
     @BeforeEach
     void tearDown() {
@@ -103,5 +116,34 @@ public class CompanyIntegrationTest {
 
         Company returningCompany = companyRepository.findById(companyId).get();
         assertEquals("oocl", returningCompany.getName());
+    }
+
+    @Test
+    void should_return_2_employees_response_when_get_employees_by_company_id_given_id() throws Exception {
+        //given
+        Company company = new Company();
+        company.setName("oocl");
+        int companyId = companyRepository.save(company).getId();
+
+        Employee employee = new Employee();
+        employee.setGender("male");
+        employee.setName("jabin");
+        employee.setAge(18);
+        employee.setCompany(company);
+        Employee anotherEmployee = new Employee();
+        anotherEmployee.setGender("female");
+        anotherEmployee.setName("caps");
+        anotherEmployee.setAge(88);
+        anotherEmployee.setCompany(company);
+        employeeRepository.save(employee);
+        employeeRepository.save(anotherEmployee);
+        //when
+        mockMvc.perform(get(String.format("/companies/%d/employees", companyId)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].name").value("jabin"));
+
+        //then
+        //List<EmployeeResponse> employeeResponses = companyService.getEmployeesByCompanyId(companyId);
+
     }
 }

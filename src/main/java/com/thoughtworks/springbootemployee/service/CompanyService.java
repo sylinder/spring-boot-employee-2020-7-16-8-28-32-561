@@ -33,7 +33,8 @@ public class CompanyService {
     public List<EmployeeResponse> getEmployeesByCompanyId(int id) {
         return companyRepository.findById(id)
                 .orElseThrow(NoSuchCompanyException::new)
-                .getEmployees().stream()
+                .getEmployees()
+                .stream()
                 .map(EmployeeToEmployeeResponse::transferEmployeeToEmployeeResponse)
                 .collect(Collectors.toList());
     }

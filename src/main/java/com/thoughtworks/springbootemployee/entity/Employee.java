@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.entity;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ public class Employee {
 
     @JoinColumn(name = "company_id")
     @ManyToOne
+    @Lazy(value = false)
     private Company company;
 
 
