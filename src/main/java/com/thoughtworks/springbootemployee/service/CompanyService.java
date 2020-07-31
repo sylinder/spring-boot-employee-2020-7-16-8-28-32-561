@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NoSuchCompanyException;
@@ -27,10 +28,8 @@ public class CompanyService {
         return companyRepository.findById(id).orElseThrow(() -> new NoSuchCompanyException());
     }
 
-    public List<Employee> getEmployeesByCompanyId(int id) {
-        return companyRepository.findById(id)
-                .orElseThrow(NoSuchCompanyException::new)
-                .getEmployees();
+    public List<EmployeeResponse> getEmployeesByCompanyId(int id) {
+        return null;
     }
 
     public Page<Company> getAllCompanies(Pageable pageable) {
