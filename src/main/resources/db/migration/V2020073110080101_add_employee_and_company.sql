@@ -9,5 +9,5 @@ CREATE TABLE employee (
 );
  CREATE TABLE company (
    company_id INT AUTO_INCREMENT  PRIMARY KEY,
-   name VARCHAR(100) NOT NULL
+   name VARCHAR(100) NOT NULLV2020073110080101_add_employee_and_company.sql
  );
