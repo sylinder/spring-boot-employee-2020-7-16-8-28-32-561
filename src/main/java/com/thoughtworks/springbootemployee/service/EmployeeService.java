@@ -52,7 +52,10 @@ public class EmployeeService {
     }
 
     public List<EmployeeResponse> getEmployeeByGender(String gender) {
-        return null;
+        return employeeRepository.findByGender(gender)
+                .stream()
+                .map(EmployeeToEmployeeResponse::transferEmployeeToEmployeeResponse)
+                .collect(Collectors.toList());
     }
 
     public void updateEmployee(Employee employee) {
