@@ -105,10 +105,9 @@ public class CompanyIntegrationTest {
     void should_return_oocl_when_get_company_by_id_given_id() throws Exception {
         //given
         Company company = new Company();
-        int companyId = 1;
         company.setName("oocl");
-        company.setId(companyId);
-        companyRepository.save(company);
+        Company companySaved = companyRepository.save(company);
+        int companyId = companySaved.getId();
         //when
 
         mockMvc.perform(get(String.format("/companies/%d", companyId)))
