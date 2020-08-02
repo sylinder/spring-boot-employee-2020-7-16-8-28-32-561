@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -96,5 +98,26 @@ public class EmployeeIntegrationTest {
         List<EmployeeResponse> employeeResponseList = employeeService.getEmployeeByGender(gender);
         assertEquals(2, employeeResponseList.size());
 
+    }
+
+    @Test
+    void should_return_1_employee_when_add_employee_given_1_employee() throws Exception {
+        //given
+        Company company = new Company();
+        company.setName("oocl");
+        Company companySaved = companyRepository.save(company);
+        int companyId = companySaved.getId();
+        String employeePayload = String.format("{\"name\": \"xiaoming\"," +
+                "\"age\": 18, \"gender\": \"male\", \"companyId\": %d}", companyId);
+
+        //when
+        mockMvc.perform(post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(employeePayload))
+                .andExpect(status().isOk());
+
+        //then
+        List<Employee> employees = employeeRepository.findAll();
+        assertEquals(1, employees.size());
     }
 }
