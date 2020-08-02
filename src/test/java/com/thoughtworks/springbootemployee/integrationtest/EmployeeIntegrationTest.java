@@ -16,10 +16,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -119,5 +119,23 @@ public class EmployeeIntegrationTest {
         //then
         List<Employee> employees = employeeRepository.findAll();
         assertEquals(1, employees.size());
+    }
+
+    @Test
+    void should_return_0_employee_when_delete_employee_given_id() throws Exception {
+        //given
+        Company company = new Company();
+        company.setName("oocl");
+        Company companySaved = companyRepository.save(company);
+        Employee employee = new Employee(1, "xiaoming", 18, "male", companySaved);
+        Employee employeeSaved = employeeRepository.save(employee);
+        int employeeId = employeeSaved.getId();
+
+        //when
+        mockMvc.perform(delete(String.format("/employees/%d", employeeId))).andExpect(status().isOk());
+
+        //then
+        List<Employee> employeeList = employeeRepository.findAll();
+        assertEquals(0, employeeList.size());
     }
 }
