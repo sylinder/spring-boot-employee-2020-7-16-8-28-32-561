@@ -70,4 +70,31 @@ public class EmployeeIntegrationTest {
         assertEquals("xiaoming", returningEmployee.getName());
     }
 
+    @Test
+    void should_return_2_when_get_employees_by_gender_male_given_2_male_and_1_female() throws Exception {
+        //given
+        Company company = new Company();
+        company.setName("oocl");
+        Company companySaved = companyRepository.save(company);
+        List<Employee> employees = new ArrayList<>();
+        for (int index = 0; index < 3; index++) {
+            Employee employee = new Employee();
+            employee.setName("aha");
+            employee.setCompany(company);
+            employee.setGender("male");
+            employees.add(employee);
+        }
+        employees.get(2).setGender("female");
+        employeeRepository.saveAll(employees);
+
+        //when
+        String gender = "male";
+        mockMvc.perform(get(String.format("/employees?gender=%s", "gender")))
+                .andExpect(status().isOk());
+
+        //then
+        List<EmployeeResponse> employeeResponseList = employeeService.getEmployeeByGender(gender);
+        assertEquals(2, employeeResponseList.size());
+
+    }
 }
