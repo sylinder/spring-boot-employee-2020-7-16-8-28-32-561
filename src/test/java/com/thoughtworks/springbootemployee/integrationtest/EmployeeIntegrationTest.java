@@ -1,15 +1,20 @@
 package com.thoughtworks.springbootemployee.integrationtest;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,6 +33,9 @@ public class EmployeeIntegrationTest {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @BeforeEach
     void tearDown() {
@@ -58,7 +66,8 @@ public class EmployeeIntegrationTest {
                 .andExpect(status().isOk());
 
         //then
-        Employee returningEmployee = employeeRepository.findById(employeeId).get();
+        EmployeeResponse returningEmployee = employeeService.getEmployeeById(employeeId);
         assertEquals("xiaoming", returningEmployee.getName());
     }
+
 }
