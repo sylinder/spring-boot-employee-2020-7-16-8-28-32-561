@@ -136,13 +136,12 @@ public class CompanyIntegrationTest {
         anotherEmployee.setCompany(company);
         employeeRepository.save(employee);
         employeeRepository.save(anotherEmployee);
+
         //when
         mockMvc.perform(get(String.format("/companies/%d/employees", companyId)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.[0].name").value("jabin"));
-
+                .andExpect(status().isOk());
         //then
-        //List<EmployeeResponse> employeeResponses = companyService.getEmployeesByCompanyId(companyId);
-
+        List<EmployeeResponse> employeeResponses = companyService.getEmployeesByCompanyId(companyId);
+        assertEquals(2, employeeResponses.size());
     }
 }

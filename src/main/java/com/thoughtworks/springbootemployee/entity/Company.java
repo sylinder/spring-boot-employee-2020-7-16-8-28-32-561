@@ -16,7 +16,7 @@ public class Company {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "company" )
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Employee> employees;
 
     public Company() {
